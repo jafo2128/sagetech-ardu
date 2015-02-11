@@ -1,0 +1,177 @@
+EESchema Schematic File Version 2
+LIBS:power
+LIBS:device
+LIBS:transistors
+LIBS:conn
+LIBS:linear
+LIBS:regul
+LIBS:74xx
+LIBS:cmos4000
+LIBS:adc-dac
+LIBS:memory
+LIBS:xilinx
+LIBS:special
+LIBS:microcontrollers
+LIBS:dsp
+LIBS:microchip
+LIBS:analog_switches
+LIBS:motorola
+LIBS:texas
+LIBS:intel
+LIBS:audio
+LIBS:interface
+LIBS:digital-audio
+LIBS:philips
+LIBS:display
+LIBS:cypress
+LIBS:siliconi
+LIBS:opto
+LIBS:atmel
+LIBS:contrib
+LIBS:valves
+LIBS:Sagetech-ardu-cache
+EELAYER 27 0
+EELAYER END
+$Descr A4 11693 8268
+encoding utf-8
+Sheet 1 1
+Title "Sagetech ADSB Transponder integration with Ardupilot"
+Date "11 feb 2015"
+Rev ""
+Comp ""
+Comment1 ""
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+$Comp
+L SAGETECH_TRANSPONDER SGT
+U 1 1 54BF8625
+P 8650 5350
+F 0 "SGT" H 8850 4300 60  0000 C CNN
+F 1 "SAGETECH_TRANSPONDER" H 8700 5500 60  0000 C CNN
+F 2 "" H 8700 5350 60  0000 C CNN
+F 3 "" H 8700 5350 60  0000 C CNN
+	1    8650 5350
+	1    0    0    -1  
+$EndComp
+$Comp
+L +BATT #PWR?
+U 1 1 54BF8661
+P 8000 5400
+F 0 "#PWR?" H 8000 5350 20  0001 C CNN
+F 1 "+BATT" H 8000 5500 30  0000 C CNN
+F 2 "" H 8000 5400 60  0000 C CNN
+F 3 "" H 8000 5400 60  0000 C CNN
+	1    8000 5400
+	1    0    0    -1  
+$EndComp
+$Comp
+L GND #PWR?
+U 1 1 54BF8670
+P 8000 6300
+F 0 "#PWR?" H 8000 6300 30  0001 C CNN
+F 1 "GND" H 8000 6230 30  0001 C CNN
+F 2 "" H 8000 6300 60  0000 C CNN
+F 3 "" H 8000 6300 60  0000 C CNN
+	1    8000 6300
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	8000 5550 8000 5400
+Wire Wire Line
+	8000 6150 8000 6300
+Text Label -20700 -14050 0    60   ~ 0
+23444
+$Comp
+L CONVERTER232 RS232
+U 1 1 54BF8AAA
+P 6050 5500
+F 0 "RS232" H 6300 4650 60  0000 C CNN
+F 1 "CONVERTER232" H 6250 5550 60  0001 C CNN
+F 2 "" H 6100 5500 60  0000 C CNN
+F 3 "" H 6100 5500 60  0000 C CNN
+	1    6050 5500
+	1    0    0    -1  
+$EndComp
+$Comp
+L ARDUINO_MEGA MEGA2560
+U 1 1 54BF8BA8
+P 3000 4150
+F 0 "MEGA2560" H 2750 4350 60  0000 C CNN
+F 1 "ARDUINO_MEGA" H 2750 4500 60  0000 C CNN
+F 2 "" H 2750 4350 60  0000 C CNN
+F 3 "" H 2750 4350 60  0000 C CNN
+	1    3000 4150
+	1    0    0    -1  
+$EndComp
+$Comp
+L ARDUPILOT APM2560
+U 1 1 54BF8CB4
+P 6550 4150
+F 0 "APM2560" H 6300 4000 60  0000 C CNN
+F 1 "ARDUPILOT" H 6300 4500 60  0000 C CNN
+F 2 "" H 6300 4000 60  0000 C CNN
+F 3 "" H 6300 4000 60  0000 C CNN
+	1    6550 4150
+	1    0    0    -1  
+$EndComp
+$Comp
+L RC_RECEIVER RC_RECEIVER
+U 1 1 54BF9036
+P 5600 2100
+F 0 "RC_RECEIVER" H 6200 1400 60  0001 C CNN
+F 1 "RC_RECEIVER" H 5950 1850 60  0000 C CNN
+F 2 "" H 5800 1800 60  0000 C CNN
+F 3 "" H 5800 1800 60  0000 C CNN
+	1    5600 2100
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4950 2450 4100 2450
+Wire Wire Line
+	4100 2450 4100 3600
+Wire Wire Line
+	4100 3600 3950 3600
+Wire Wire Line
+	4950 2600 4250 2600
+Wire Wire Line
+	4250 2600 4250 3700
+Wire Wire Line
+	4250 3700 3950 3700
+Wire Wire Line
+	3950 3800 4950 3800
+Wire Wire Line
+	3950 3900 4500 3900
+Wire Wire Line
+	4500 3900 4500 5700
+Wire Wire Line
+	4500 5700 5400 5700
+Wire Wire Line
+	3950 4000 4400 4000
+Wire Wire Line
+	4400 4000 4400 5850
+Wire Wire Line
+	4400 5850 5400 5850
+Wire Wire Line
+	4950 2300 4050 2300
+Wire Wire Line
+	4050 2300 4050 3500
+Wire Wire Line
+	4050 3500 3950 3500
+Wire Wire Line
+	5400 6000 4000 6000
+Wire Wire Line
+	4000 6000 4000 3500
+Connection ~ 4000 3500
+Wire Wire Line
+	5400 6150 3350 6150
+Wire Wire Line
+	3350 6150 3350 4700
+Wire Wire Line
+	7050 5700 8000 5700
+Wire Wire Line
+	7050 5850 8000 5850
+Wire Wire Line
+	7050 6000 8000 6000
+$EndSCHEMATC
