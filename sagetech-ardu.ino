@@ -38,7 +38,7 @@ unsigned long last_mavlink_change_time = 0;
 static const char TAIL_NUMBER[] = "6ARDU";
 
 // Current altitude from Ardupilot.
-long current_altitude_in100ft = 0;
+long current_altitude_in100ft = Sagetech_protocol::ALTITUDE_USE_BUILT_IN_SENSOR;
 
 bool passthrough_mode = true;
 
@@ -72,8 +72,32 @@ HardwareSerial& debug_port = Serial;
 void Set_transponder_mode(Transponder_mode mode, bool start_ident = false)
 {
     uint8_t sagetech_packet[Sagetech_protocol::MAX_FRAME_LENGTH];
+    Sagetech_protocol::Operating_message oper;
+    oper.power_up_mode = Sagetech_protocol::Power_up_mode::OFF_SQUAWK_1200;
+    oper.squawk_code = SQUAWK_CODE_SPILVE;
 
-    // ... Create sagetech message here
+    switch (mode) {
+    case Transponder_mode::OFF:
+        oper.transponder_mode = Sagetech_protocol::Transponder_mode::OFF;
+        oper.start_ident = false;
+        break;
+    case Transponder_mode::ON:
+        oper.transponder_mode = Sagetech_protocol::Transponder_mode::ON;
+        oper.start_ident = start_ident;
+        break;
+    case Transponder_mode::ALT_INTERNAL:
+        oper.pressure_altitude = Sagetech_protocol::ALTITUDE_USE_BUILT_IN_SENSOR;
+        oper.transponder_mode = Sagetech_protocol::Transponder_mode::ALT;
+        oper.start_ident = start_ident;
+        break;
+    case Transponder_mode::ALT_EXTERNAL:
+        oper.pressure_altitude = current_altitude_in100ft;
+        oper.transponder_mode = Sagetech_protocol::Transponder_mode::ALT;
+        oper.start_ident = start_ident;
+        break;
+    default:
+        return;
+    }
 
     auto len = sagetech_protocol.Create_operating_message(oper, sagetech_packet);
     sagetech_port.write(sagetech_packet, len);
@@ -82,11 +106,13 @@ void Set_transponder_mode(Transponder_mode mode, bool start_ident = false)
         debug_port.print("Setting mode to ");
         debug_port.println((int)mode);
     }
+//    Dump_data(sagetech_packet, len, debug_port);
 }
 
 void On_mavlink_gps(Mavlink_protocol::Message_gps_int msg)
 {
     if (msg.lat == 0 && msg.lon == 0 && msg.alt == 0) {
+        current_altitude_in100ft = Sagetech_protocol::ALTITUDE_USE_BUILT_IN_SENSOR;
         return; // GPS data invalid. Ignore.
     }
 
@@ -114,8 +140,11 @@ void On_mavlink_gps(Mavlink_protocol::Message_gps_int msg)
 
     Sagetech_protocol::Gps_message gps_message;
     uint8_t sagetech_packet[Sagetech_protocol::MAX_FRAME_LENGTH];
-
-    // ... Create sagetech message here
+    gps_message.lat = msg.lat;
+    gps_message.lon = msg.lon;
+    gps_message.alt = msg.alt;
+    gps_message.speed_over_ground =sqrt((long)msg.vx * (long)msg.vx + (long)msg.vy * (long)msg.vx);
+    gps_message.course_over_ground = msg.hdg;
 
     auto len = sagetech_protocol.Create_gps_message(gps_message, sagetech_packet);
     sagetech_port.write(sagetech_packet, len);
@@ -124,6 +153,23 @@ void On_mavlink_gps(Mavlink_protocol::Message_gps_int msg)
 
 void On_sagetech_ack(Sagetech_protocol::Acknowledge_message msg)
 {
+    if (!passthrough_mode) {
+        debug_port.println();
+        debug_port.print("mode=");
+        debug_port.println((int)msg.transponder_mode);
+        debug_port.print("ident=");
+        debug_port.println(msg.ident_active);
+        debug_port.print("altext=");
+        debug_port.println(msg.altitude_source_external);
+        debug_port.print("err=");
+        debug_port.print(msg.extended_squitter_error);
+        debug_port.print(msg.gps_error);
+        debug_port.print(msg.icao_error);
+        debug_port.print((int)msg.power_up_mode);
+        debug_port.print(msg.temperature_error);
+        debug_port.print(msg.transponder_error);
+        debug_port.println();
+    }
     unsigned int blink_pause;
     if (msg.ident_active) {
         blink_pause = 600;
@@ -163,11 +209,8 @@ void setup()
 
     // Set flight number (Send preflight message to transponder)
     uint8_t sagetech_packet[Sagetech_protocol::MAX_FRAME_LENGTH];
-
-    // ... Create sagetech message here
-
+    auto len = sagetech_protocol.Create_preflight_message(TAIL_NUMBER, sagetech_packet);
     sagetech_port.write(sagetech_packet, len);
-
 }
 
 void loop()
