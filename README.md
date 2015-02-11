@@ -10,7 +10,7 @@ Arduino reads the pwm signal from RC receiver and sets the transponder mode acco
 There are four modes of operation:
 
 | Mode | Description|
-| -- | -- |
+| --- | --- |
 | OFF | Transponder is swithched off |
 | ON | Transponder is swithched off |
 | ALT (internal) | Transponder is using altitude from internal barometer |
@@ -25,7 +25,7 @@ Two LEDs are used to show current status of transponder.
 Red LED is used to show transponder state:
 
 | Red LED | Description |
-| -- | -- |
+| --- | --- |
 | Solid | Transponder not detected. |
 | Off | Transponder connected but ADSB transmitter radio is turned off. |
 | 1 Blink, long pause | Transponder in ON mode. (Altitude is not being broadcast)|
@@ -38,7 +38,7 @@ Red LED is used to show transponder state:
 Green LED is used to show telemetry link state:
 
 | Green LED | Description |
-| -- | -- |
+| --- | --- |
 | Off | Telemetry is not present or there is no valid GPS data.|
 | Blinking | Valid GPS data is present. (blinks on each valid GLOBAL_POSITION_INT message)|
 
