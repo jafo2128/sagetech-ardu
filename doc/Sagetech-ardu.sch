@@ -36,7 +36,7 @@ $Descr A4 11693 8268
 encoding utf-8
 Sheet 1 1
 Title "Sagetech ADSB Transponder integration with Ardupilot"
-Date "11 feb 2015"
+Date "17 feb 2015"
 Rev ""
 Comp ""
 Comment1 ""
@@ -84,10 +84,10 @@ Wire Wire Line
 Text Label -20700 -14050 0    60   ~ 0
 23444
 $Comp
-L CONVERTER232 RS232
+L CONVERTER232 RS232~LEVEL~SHIFTER
 U 1 1 54BF8AAA
 P 6050 5500
-F 0 "RS232" H 6300 4650 60  0000 C CNN
+F 0 "RS232 LEVEL SHIFTER" H 6300 4650 60  0000 C CNN
 F 1 "CONVERTER232" H 6250 5550 60  0001 C CNN
 F 2 "" H 6100 5500 60  0000 C CNN
 F 3 "" H 6100 5500 60  0000 C CNN
