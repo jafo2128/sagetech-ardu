@@ -3,6 +3,18 @@
 Sample code to show how to integrate ADSB transponder with autopilot.
 This is Arduino sketch used to connect Sagetech ADSB transponder to Ardupilot autopilot.
 
+#### Build instructions
+
+The code can be built with Arduino IDE version 1.5.8+.
+
+Code uses C++11 standard, so it must be compiled with -std=c++11 option.
+
+Unfortunately Arduino IDE does not allow adding compiler flags in GUI. You  need to manually edit config file:
+- Open file {your arduino ide path}/hardware/arduino/avr/platform.txt
+- Find line containing "compiler.cpp.flags"
+- Append -std=c++11 at the line end.
+- Save and launch Arduino IDE. You should be able to build the sketch, now.
+
 ### Transponder mode change
 Separate RC channel is used to drive the transponder On/Off.
 Arduino reads the pwm signal from RC receiver and sets the transponder mode accordingly. 
