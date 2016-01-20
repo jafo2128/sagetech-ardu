@@ -143,7 +143,7 @@ void On_mavlink_gps(Mavlink_protocol::Message_gps_int msg)
     gps_message.lat = msg.lat;
     gps_message.lon = msg.lon;
     gps_message.alt = msg.alt;
-    gps_message.speed_over_ground =sqrt((long)msg.vx * (long)msg.vx + (long)msg.vy * (long)msg.vx);
+    gps_message.speed_over_ground =sqrt((long)msg.vx * (long)msg.vx + (long)msg.vy * (long)msg.vy);
     gps_message.course_over_ground = msg.hdg;
 
     auto len = sagetech_protocol.Create_gps_message(gps_message, sagetech_packet);
