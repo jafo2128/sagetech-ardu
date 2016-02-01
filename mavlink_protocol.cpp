@@ -25,7 +25,7 @@ Mavlink_protocol::On_message()
         msg_gps.vx = Get_le_i16(packet + 25);
         msg_gps.vy = Get_le_i16(packet + 27);
         msg_gps.vz = Get_le_i16(packet + 29);
-        msg_gps.hdg = Get_le_i16(packet + 31);
+        msg_gps.hdg = Get_le_u16(packet + 31);
         On_mavlink_gps(msg_gps);
         break;
     default:

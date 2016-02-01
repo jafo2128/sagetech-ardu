@@ -21,7 +21,7 @@ public:
         int16_t vx;                 // cm/s
         int16_t vy;                 // cm/s
         int16_t vz;                 // cm/s
-        int16_t hdg;                // centidegrees
+        uint16_t hdg;               // centidegrees
     } Message_gps_int;
 
     virtual ~Mavlink_protocol();
