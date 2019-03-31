@@ -62,9 +62,9 @@ Transponder can be put into IDENT mode when it broadcasts SQUAWK code for 18 sec
 To turn on IDENT mode flip the switch between ON and ALT modes 4 times.
 
 ### Reference
-https://github.com/UgCS/sagetech-ardu  Origional Project SourceCode
-https://www.ugcs.com/news-entry/how-it-is-made-3dr-pixhawk-and-sagetech-ads-b-integration
-https://www.ugcs.com/download
-http://flightradar24.com/
+- https://github.com/UgCS/sagetech-ardu  Origional Project SourceCode
+- https://www.ugcs.com/news-entry/how-it-is-made-3dr-pixhawk-and-sagetech-ads-b-integration
+- https://www.ugcs.com/download
+- http://flightradar24.com/
 
-https://youtu.be/k-oirv-SX9U  Video preveiew of copter with onboard ADS-B Trasponder
+- https://youtu.be/k-oirv-SX9U  Video preveiew of copter with onboard ADS-B Trasponder
